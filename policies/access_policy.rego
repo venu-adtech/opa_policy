@@ -9,8 +9,7 @@ allow if {
 	user_role := lower(raw_role)
 	print("User role:", user_role)
 
-	print("Permissions:", data.result.roles_permissions.roles[user_role])
-	role_perms := data.result.roles_permissions.roles[user_role]
+	role_perms := data.roles_permissions.roles[user_role]
 	print("Permissions for role:", role_perms)
 
 	perm := role_perms[_]
@@ -20,3 +19,4 @@ allow if {
 
 	perm == required_permission
 }
+
