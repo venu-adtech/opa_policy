@@ -1,12 +1,12 @@
 package httpapi.authz
 
-default allow = false
+default allow := false
 
 required_permission := sprintf("%s.%s", [input.resource, input.action])
 
 allow if {
     raw_role := input.user.roles[_]
-    user_role := upper(raw_role)
+    user_role := lower(raw_role)
     print("User role:", user_role)
 
     role_perms := data.roles_permissions.roles[user_role]
@@ -17,6 +17,5 @@ allow if {
 
     print("Required permission:", required_permission)
 
-    upper(perm) == upper(required_permission)
+    perm == required_permission
 }
-
